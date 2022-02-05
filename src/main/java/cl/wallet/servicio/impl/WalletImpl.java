@@ -18,17 +18,18 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.stereotype.Service;
 
 import cl.wallet.servicio.IWallet;
+import cl.wallet.to.Request;
 import cl.wallet.to.Response;
 
 @Service
 public class WalletImpl implements IWallet{
 	
-	public Response walletGen() {
+	public Response walletGen(Request request) {
 		
 		Response response= new Response();
 		
 		try {
-//			Generar par de claves ECDSA
+//			Generar par de claves ECDSA (Elliptic Curve Digital Signature Algorithm)
 //			Creacion de algoritmosKeyPairGenerator
 			KeyPairGenerator keyGen = KeyPairGenerator.getInstance("EC");
 			
@@ -60,19 +61,23 @@ public class WalletImpl implements IWallet{
 			byte[] r1 = rmd.digest(s1);
 			
 			
-//			Agregar un byte de versión 0x00 al comienzo del hash (MainNet)
-			byte[] r2 = new byte[r1.length + 1];
-			r2[0] = 0;
-			for (int i = 0 ; i < r1.length ; i++) {
-				r2[i+1] = r1[i];
-			}
+			byte[] r2;
 			
-//			Agregar un byte de versión 0x6F al comienzo del hash (TestNet)
-//			byte[] r2 = new byte[r1.length + 1];
-//			r2[0] = 0;
-//			for (int i = 0 ; i < r1.length ; i++) {
-//				r2[i+1] = r1[i];
-//			}
+			if (!request.getTestNet()) {
+//				Agregar un byte de versión 0x00 al comienzo del hash (MainNet), empiezan por “1” o “3”.
+				r2 = new byte[r1.length + 1];
+				r2[0] = (byte)0x00;
+				for (int i = 0 ; i < r1.length ; i++) {
+					r2[i+1] = r1[i];
+				}
+			}else {
+//				Agregar un byte de versión 0x6F al comienzo del hash (TestNet), empiezan por “m” o “2“.
+				r2 = new byte[r1.length + 1];
+				r2[0] = (byte)0x6F;
+				for (int i = 0 ; i < r1.length ; i++) {
+					r2[i+1] = r1[i];
+				}
+			}
 			
 //			Repetir el hash SHA-256 dos veces
 			byte[] s2 = sha.digest(r2);
