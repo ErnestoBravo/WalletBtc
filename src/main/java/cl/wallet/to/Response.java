@@ -1,15 +1,24 @@
 package cl.wallet.to;
 
+import java.math.BigInteger;
+
 public class Response {
 
-	private String hash;
+	private BigInteger bigIntegerPrivKey;
+	private String privKey;
 	private String wallet;
 	
-	public String getHash() {
-		return hash;
+	public BigInteger getBigIntegerPrivKey() {
+		return bigIntegerPrivKey;
 	}
-	public void setHash(String hash) {
-		this.hash = hash;
+	public void setBigIntegerPrivKey(BigInteger bigIntegerPrivKey) {
+		this.bigIntegerPrivKey = bigIntegerPrivKey;
+	}
+	public String getPrivKey() {
+		return privKey;
+	}
+	public void setPrivKey(String privKey) {
+		this.privKey = privKey;
 	}
 	public String getWallet() {
 		return wallet;
@@ -17,5 +26,7 @@ public class Response {
 	public void setWallet(String wallet) {
 		this.wallet = wallet;
 	}
+
+
 	
 }

@@ -1,4 +1,4 @@
-package cl.wallet.controlador.impl;
+package cl.wallet.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
