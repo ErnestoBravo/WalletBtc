@@ -51,6 +51,16 @@
 			<artifactId>crypto</artifactId>
 			<version>3.3.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google</groupId>
+			<artifactId>bitcoinj</artifactId>
+			<version>0.11.3</version>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.github.alanverbner</groupId> -->
+<!-- 			<artifactId>bip39_2.12</artifactId> -->
+<!-- 			<version>1.0</version> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 	<build>

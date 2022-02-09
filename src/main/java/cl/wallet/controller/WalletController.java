@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.wallet.servicio.impl.WalletImpl;
@@ -13,7 +14,7 @@ import cl.wallet.to.Request;
 import cl.wallet.to.Response;
 
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 public class WalletController {
 
 	@Autowired
@@ -24,5 +25,5 @@ public class WalletController {
 		Response respose = service.walletGen(request);
 		return respose;
 	}
-
+	
 }
