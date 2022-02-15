@@ -3,22 +3,13 @@ package cl.wallet.servicio.impl;
 import java.io.File;
 import java.math.BigInteger;
 
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.BlockChain;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.PeerGroup;
-import org.bitcoinj.core.Transaction;
 import org.bitcoinj.kits.WalletAppKit;
 import org.bitcoinj.params.TestNet3Params;
-import org.bitcoinj.script.Script;
-import org.bitcoinj.store.BlockStore;
-import org.bitcoinj.store.MemoryBlockStore;
-import org.bitcoinj.wallet.DeterministicSeed;
-import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.springframework.stereotype.Service;
@@ -44,6 +35,8 @@ import com.google.common.util.concurrent.MoreExecutors;
 public class TransactionImpl {
 
 	public String sendBtc() {
+		
+		
 		// We use the WalletAppKit that handles all the boilerplate for us. Have a look at the Kit.java example for more details.
         NetworkParameters params = TestNet3Params.get();
         WalletAppKit kit = new WalletAppKit(params, new File("."), "sendrequest-example") {
@@ -54,7 +47,7 @@ public class TransactionImpl {
                 // on the main thread.
                 if (wallet().getKeyChainGroupSize() < 1) {
 //					new ECKey();
-					wallet().importKey(ECKey.fromPrivate(new BigInteger("70830002697343512228364346785782890265336994493369545840331792061353250356756")));
+					wallet().importKey(ECKey.fromPrivate(new BigInteger("70830002697343512228364346785782890265336994493369545840331792061353250356756"))); // Devuelve bytes de clave pública de la clave privada dada.
 				}
             }
         };
@@ -67,7 +60,7 @@ public class TransactionImpl {
         // How much coins do we want to send?
         // The Coin class represents a monetary Bitcoin value.
         // We use the parseCoin function to simply get a Coin instance from a simple String.
-        Coin value = Coin.parseCoin("0.0002");
+        Coin value = Coin.parseCoin("0.016");
 
         // To which address you want to send the coins?
         // The Address class represents a Bitcoin address.
@@ -107,8 +100,8 @@ public class TransactionImpl {
         }
 
         // shutting down 
-        kit.stopAsync();
-        kit.awaitTerminated();
+//        kit.stopAsync();
+//        kit.awaitTerminated();
     
 		return ":o)";
 	}
